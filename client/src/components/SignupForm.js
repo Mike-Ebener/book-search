@@ -13,6 +13,7 @@ const SignupForm = () => {
   //new
   const [addUser, { error }] = useMutation(ADD_USER);
   
+  console.log(addUser);
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
@@ -24,30 +25,40 @@ const SignupForm = () => {
   };
 
   const handleFormSubmit = async (event) => {
+
     event.preventDefault();
 
+    console.log('hit');
+    
     // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    // const form = event.currentTarget;
+    // console.log(userFormData);
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
+    
+    // try {
+    //   // changed createUser to addUser
+    //   const response = await addUser(userFormData);
+      
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
 
-    try {
-      // changed createUser to addUser
-      const response = await addUser(userFormData);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
-    }
+    //   const { token, user } = await response.json();
+    //   console.log(user);
+    //   Auth.login(token);
+    // } catch (err) {
+    //   console.error(err);
+    //   setShowAlert(true);
+    // }
+    const response = await addUser({username: 'ex',email:'example@yahoo.com',password: '123123'});
+    // const {token, user } = await response.json();
+    // console.log('user', user);
+    // console.log('token', token)
+    // Auth.login(token);
+    console.log('response', response);
 
     setUserFormData({
       username: '',
